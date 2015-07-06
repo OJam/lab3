@@ -63,6 +63,8 @@ package
 			addChild(zoomedMaterials);
 			zoomedMaterials.hide(null);
 			stageOne.setZoomedMaterials(zoomedMaterials);
+			stageOne.buttons = phazesInfo;
+			//добавить ссылку на кнопки
 			///!!!!!!!!!!!!!!
 			//stageOne.mask1_.addEventListener(MouseEvent.CLICK, function():void {zoomedMaterials.show();}	);
 			

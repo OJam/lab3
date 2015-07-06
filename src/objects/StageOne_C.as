@@ -2,6 +2,8 @@ package objects
 {
 	import flash.display.Stage;
 	import flash.events.MouseEvent;
+	import Interface.PhazesInfo;
+	import Interface.PhazeTwo_C;
 	import logic.RND;
 	/**
 	 * ...
@@ -14,6 +16,7 @@ package objects
 		private var addedMaterials:Array = [];
 		private var zoomedMaterials:Materials_C;
 		private var rnd:RND;
+		public var buttons:PhazesInfo;
 		
 		public function StageOne_C(_stage:Stage) 
 		{
@@ -32,7 +35,6 @@ package objects
 			}
 			for (var i:int = 0 ; i < 5; i++) {	
 				var a:Number = rnd.getNum();
-				trace(a);
 				addedMaterials[i] = materials[a];
 				addChild(addedMaterials[i]);
 				addedMaterials[i].y = 250 - i * 7.5;
@@ -51,14 +53,22 @@ package objects
 			materials[10].setName("K");
 			
 			mask1_.alpha = 0;
-			mask1_.addEventListener(MouseEvent.CLICK, function():void {zoomedMaterials.show();}	);
+			mask1_.addEventListener(MouseEvent.CLICK, function():void {
+				zoomedMaterials.show();				
+				buttons.buttons[2].setActive();
+				for (var i:int = 0; i < 5; i++){
+					if(addedMaterials[i].isUsed == false){
+						buttons.buttons[2].setUnActive();
+					}
+				}
+				});
 			
 			mask_.buttonMode = true;
 			
 			trace(_stage.height);
 			
 		}
-		
+				
 		public function setZoomedMaterials(zm:Materials_C):void{
 			this.zoomedMaterials = zm;
 			for (var i:int = 0 ; i < 11; i++){
@@ -69,11 +79,12 @@ package objects
 		public function setActive():void{
 			this.alpha = 1;
 			this.mouseEnabled = true;
+			this.mouseChildren = true;
 		}
 		
 		public function setUnActive():void{
-			this.alpha = 0;
 			this.mouseEnabled = false;
+			this.mouseChildren = false;
 		}
 		
 		public function onRes(Width:Number, Height:Number):void{

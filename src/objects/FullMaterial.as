@@ -21,6 +21,7 @@ package objects
 		private var materialName:String = "name";
 		private var frameNumber:Number;
 		public var zoomed:Materials_C;
+		public var isUsed:Boolean = false;
 		
 		public function FullMaterial() 
 		{
@@ -118,7 +119,7 @@ package objects
 		private function upHandler(e:MouseEvent):void {
 			material.addEventListener(MouseEvent.MOUSE_OVER, showInfo);
 			material.addEventListener(MouseEvent.MOUSE_OUT, hideInfo);	
-			
+			isUsed = true; //просмотрен ли материал
 			this.stopDrag();
 			this.zoomed.frameNumber = this.frameNumber;
 			var point:Point = localToGlobal(new Point(mouseX, mouseY));
@@ -143,6 +144,7 @@ package objects
 				material.setMaterial(false);
 				e.currentTarget.x = startX;
 				e.currentTarget.y = startY;
+				
 			}				
 		}
 	}
