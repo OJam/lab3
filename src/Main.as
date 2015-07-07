@@ -47,7 +47,7 @@ package
 			phazesInfo = new PhazesInfo(stage.stageWidth, stage.stageHeight);
 			addChild(phazesInfo);
 			//превью
-			preview = new Preview("videos/preview.flv");
+			preview = new Preview("preview.flv");
 			stages[0] = preview;
 			addChildAt(preview, 0);
 			preview.onRes(stage.stageWidth, stage.stageHeight);

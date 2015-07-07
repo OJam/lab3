@@ -1,5 +1,6 @@
 package objects 
 {
+	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	import Interface.PhazesInfo;
@@ -21,7 +22,6 @@ package objects
 		public function StageOne_C(_stage:Stage) 
 		{
 			rnd = new RND(10);
-			
 			this.alpha = 0;
 			this.mouseEnabled = false;
 			this.x = _stage.stageWidth - this.width;
@@ -54,13 +54,12 @@ package objects
 			
 			mask1_.alpha = 0;
 			mask1_.addEventListener(MouseEvent.CLICK, function():void {
-				zoomedMaterials.show();				
-				buttons.buttons[2].setActive();
-				for (var i:int = 0; i < 5; i++){
-					if(addedMaterials[i].isUsed == false){
-						buttons.buttons[2].setUnActive();
-					}
-				}
+				zoomedMaterials.show();			
+				//for (var i:int = 0; i < 5; i++){
+					//if(addedMaterials[i].isUsed == false){
+						//buttons.buttons[2].setUnActive();
+					//}
+				//}
 				});
 			
 			mask_.buttonMode = true;

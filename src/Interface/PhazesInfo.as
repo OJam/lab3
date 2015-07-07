@@ -18,13 +18,10 @@ package Interface
 			buttons = new Array;
 			buttons[0] = new ZeroPhaze_C(_stageWidth, _stageHeight);
 			buttons[1] = new PhazeOne_C(_stageWidth, _stageHeight);	
-			buttons[2] = new PhazeTwo_C(_stageWidth, _stageHeight)
-			buttons[2].setUnActive();
 			stageInfo = new StageInfo_C(_stageWidth, _stageHeight, buttons);
 			addChild(stageInfo);
 			addChild(buttons[0]);
 			addChild(buttons[1]);
-			addChild(buttons[2]);
 			
 			onRes(_stageWidth, _stageHeight);
 			//включаем превью
@@ -40,10 +37,6 @@ package Interface
 				//buttons[2].setActive();
 			});
 			
-			buttons[2].addEventListener(MouseEvent.CLICK, function():void {
-				//stageInfo.gotoAndStop(3);	
-				//trace("stage 2");
-			});
 		}
 		
 		//переключение между сценами
@@ -59,12 +52,6 @@ package Interface
 				_stages[1].alpha = 1;
 				_stages[1].setActive();
 				_stages[0].alpha = 0;
-			});
-			buttons[2].addEventListener(MouseEvent.CLICK, function():void{
-				_stages[1].alpha = 0;
-				_stages[0].alpha = 0;
-				_stages[1].setUnActive();
-				_stages[1].mouseEnabled = false;
 			});
 		}
 		
