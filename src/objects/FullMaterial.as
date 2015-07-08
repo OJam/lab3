@@ -50,7 +50,7 @@ package objects
 		
 		public function setName(_name:String):void{
 			materialName = _name;
-			info.txt.text ="Материал " + materialName;
+			info.txt.text ="Образец стали " + materialName;
 		}
 		
 		public function getName():String {

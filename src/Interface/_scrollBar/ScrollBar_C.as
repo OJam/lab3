@@ -3,6 +3,7 @@ package Interface._scrollBar
 	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	import com.greensock.TweenLite;
+	import flash.geom.Rectangle;
 	/**
 	 * ...
 	 * @author Nikolaev Yuriy
@@ -13,7 +14,7 @@ package Interface._scrollBar
 		private var isHide:Boolean = false;
 		private var pageNumber:Number = 1;
 		private var scrollStep:Number;
-		
+		private var pagesStep:Number;
 		
 		public function ScrollBar_C(_stage:Stage) 
 		{
@@ -86,15 +87,28 @@ package Interface._scrollBar
 			this.Scroll.width = 25;
 			this.Scroll.buttonMode = true;
 			this.Scroll.y = 30;
+			this.Scroll.addEventListener(MouseEvent.MOUSE_WHEEL, wheelText);
+			this.Scroll.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			
+			st.addEventListener(MouseEvent.MOUSE_UP, onUp);
 		}
 		
+		private function onDown(e:MouseEvent):void {
+			var bounds:Rectangle = new Rectangle(this.pages.width - Scroll.width, 30, 0, stage.stageHeight - 78); 					
+			Scroll.startDrag(false,bounds);	
+		}
+		
+		private function onUp(e:MouseEvent):void{
+			Scroll.stopDrag();
+			
+		}
 		private function wheelText(e:MouseEvent):void{
 			if(e.delta > 0 && (stage.stageHeight / this.pages.height <= 1)){
 				
 				if (Scroll.y <= 30) Scroll.y = 30;
 				else{
-					Scroll.y -= 5;
-					this.pages.y += scrollStep;
+					Scroll.y -= scrollStep;
+					this.pages.y += pagesStep;
 				}
 			}
 			if(e.delta < 0 && (stage.stageHeight / this.pages.height <= 1)){
@@ -103,8 +117,8 @@ package Interface._scrollBar
 					Scroll.y = stage.stageHeight - Scroll.height - 48;
 				}
 				else{
-					this.pages.y -= scrollStep;
-					Scroll.y += 5;
+					this.pages.y -= pagesStep;
+					Scroll.y += scrollStep;
 				}
 			}
 		}
@@ -134,7 +148,7 @@ package Interface._scrollBar
 		{
 			this.border.height = _height;
 			this.bg.height = st.stageHeight;
-			scrollStep = pages.height / scrollBG.height;
+			
 			//отрисовываем скролл если не влазит текст
 			if(pages.height > stage.stageHeight - 78){
 				TweenLite.to(scrollBG, 0.5, { alpha:1 } );
@@ -152,6 +166,9 @@ package Interface._scrollBar
 				TweenLite.to(Scroll, 1, { alpha:0 } );
 				this.Scroll.buttonMode = false;
 			}
+			scrollStep = (pages.height - scrollBG.height) * 0.1;
+			pagesStep = (pages.height - scrollBG.height) * 0.1;
+			//scrollStep = pages.height / (scrollBG.height- Scroll.height);
 		}
 	}
 
