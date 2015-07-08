@@ -74,16 +74,13 @@ package objects
 		}
 		
 		public function onRes():void {
-			//this.zoomedM.width = 500;
-			//this.zoomedM.height = 429.75;
-			//this.zoomedM.x = this.zoomedM.x = stage_.width / 2 - zoomedM.width / 2;
-			//this.zoomedM.y =stage_.height / 2 - zoomedM.height / 2 - 68;
-			//this.bg.width = stage_.width;
-			//this.bg.height = stage_.height;
+			
 			this.bg.width = stage_.stageWidth;
 			this.bg.height = stage_.stageHeight - 48;
 			this.zoomedM.x = stage_.stageWidth / 2 - zoomedM.width / 2;
 			this.zoomedM.y = stage_.stageHeight / 2 - zoomedM.height / 2;
+			this.saveBut.x = this.bg.width - this.saveBut.width;
+			this.saveBut.y = this.bg.height - 60;
 		}
 	}
 

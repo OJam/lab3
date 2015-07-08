@@ -29,8 +29,26 @@ package Interface._scrollBar
 			this.txtNext.gotoAndStop(1);
 			this.txtNext.width = 25;
 			this.txtNext.height = 30;
-			this.txtNext.x = 540;
+			this.txtNext.x = 530;
 			this.txtNext.alpha = 0;
+			this.txtNext.buttonMode = false;
+			this.txtNext.addEventListener(MouseEvent.CLICK, function():void{
+				if (pageNumber < 8)
+				pageNumber += 1;
+				pages.gotoAndStop(pageNumber);
+			});
+			//кнопка следующей страницы
+			this.txtPrev.gotoAndStop(1);
+			this.txtPrev.width = 25;
+			this.txtPrev.height = 30;
+			this.txtPrev.x = 500;
+			this.txtPrev.alpha = 0;
+			this.txtPrev.buttonMode = false;
+			this.txtPrev.addEventListener(MouseEvent.CLICK, function():void{
+				if (pageNumber > 2)
+				pageNumber -= 1;
+				pages.gotoAndStop(pageNumber);
+			});
 			//рамка справа
 			this.border.width = 1;
 			this.border.x = 599;
@@ -48,7 +66,11 @@ package Interface._scrollBar
 			this.program.width = 105;
 			this.program.x = 10;
 			this.program.buttonMode = true;
-			this.program.addEventListener(MouseEvent.CLICK, function():void{
+			this.program.addEventListener(MouseEvent.CLICK, function():void {
+				TweenLite.to(txtNext, 1, { alpha:0 } );	
+				TweenLite.to(txtPrev, 1, { alpha:0 } );
+				txtNext.buttonMode = false;
+				txtPrev.buttonMode = false;
 				pageNumber = 1;
 				changePage();
 			});
@@ -57,7 +79,11 @@ package Interface._scrollBar
 			this.materials.width = 105;
 			this.materials.x = 116;
 			this.materials.buttonMode = true;
-			this.materials.addEventListener(MouseEvent.CLICK, function():void{
+			this.materials.addEventListener(MouseEvent.CLICK, function():void {
+				TweenLite.to(txtNext, 1, { alpha:1 } );	
+				TweenLite.to(txtPrev, 1, { alpha:1 } );
+				txtNext.buttonMode = true;
+				txtPrev.buttonMode = true;
 				pageNumber = 2;
 				changePage();
 			});
