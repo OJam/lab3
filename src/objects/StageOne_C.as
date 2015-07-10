@@ -21,7 +21,7 @@ package objects
 		
 		public function StageOne_C(_stage:Stage) 
 		{
-			rnd = new RND(10);
+			rnd = new RND(8);
 			this.alpha = 0;
 			this.mouseEnabled = false;
 			this.x = _stage.stageWidth - this.width;
@@ -33,12 +33,23 @@ package objects
 				materials[i].setFrame(i+1);
 				materials[i].setMask(mask_, mask1_);
 			}
-			for (var i:int = 0 ; i < 5; i++) {	
+			for (var i:int = 0 ; i < 3; i++) {	
 				var a:Number = rnd.getNum();
 				addedMaterials[i] = materials[a];
 				addChild(addedMaterials[i]);
 				addedMaterials[i].y = 250 - i * 7.5;
 				addedMaterials[i].x = 140 + i * 40;
+				addedMaterials[i].startX = 140 + i * 40;
+				addedMaterials[i].startY = 250 - i * 7.5;
+			}
+			for (var i:int = 3 ; i < 5; i++) {	
+				var a:Number = i + 6;
+				addedMaterials[i] = materials[a];
+				addChild(addedMaterials[i]);
+				addedMaterials[i].y = 250 - i * 7.5;
+				addedMaterials[i].x = 140 + i * 40;
+				addedMaterials[i].startX = 140 + i * 40;
+				addedMaterials[i].startY = 250 - i * 7.5;
 			}
 			materials[0].setName("A");
 			materials[1].setName("B");

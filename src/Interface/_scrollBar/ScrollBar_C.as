@@ -24,6 +24,9 @@ package Interface._scrollBar
 			this.y = 48;
 			this.scrollBarHead.width = 600;
 			this.scrollBarHead.height = 30;
+			this.program.gotoAndStop(1);
+			this.materials.gotoAndStop(2);
+			this.instructions.gotoAndStop(2);
 			
 			//кнопка следующей страницы
 			this.txtNext.gotoAndStop(1);
@@ -67,6 +70,9 @@ package Interface._scrollBar
 			this.program.x = 10;
 			this.program.buttonMode = true;
 			this.program.addEventListener(MouseEvent.CLICK, function():void {
+				program.gotoAndStop(1);
+				materials.gotoAndStop(2);
+				instructions.gotoAndStop(2);
 				TweenLite.to(txtNext, 1, { alpha:0 } );	
 				TweenLite.to(txtPrev, 1, { alpha:0 } );
 				txtNext.buttonMode = false;
@@ -80,6 +86,9 @@ package Interface._scrollBar
 			this.materials.x = 116;
 			this.materials.buttonMode = true;
 			this.materials.addEventListener(MouseEvent.CLICK, function():void {
+				program.gotoAndStop(2);
+				materials.gotoAndStop(1);
+				instructions.gotoAndStop(2);
 				TweenLite.to(txtNext, 1, { alpha:1 } );	
 				TweenLite.to(txtPrev, 1, { alpha:1 } );
 				txtNext.buttonMode = true;
@@ -114,7 +123,7 @@ package Interface._scrollBar
 			this.Scroll.buttonMode = true;
 			this.Scroll.y = 30;
 			this.Scroll.addEventListener(MouseEvent.MOUSE_WHEEL, wheelText);
-			this.Scroll.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			//this.Scroll.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
 			
 			st.addEventListener(MouseEvent.MOUSE_UP, onUp);
 		}

@@ -12,6 +12,7 @@ package Interface
 		private var zeroPhaze:ZeroPhaze_C;
 		public var buttons:Array;
 		private var stages:Array;
+		private var currStage:Number = 0;
 		
 		public function PhazesInfo(_stageWidth:Number, _stageHeight:Number) 
 		{
@@ -27,14 +28,32 @@ package Interface
 			//включаем превью
 			buttons[0].addEventListener(MouseEvent.CLICK, function():void{
 				stageInfo.gotoAndStop(1);
+				stageInfo.setCurr(0);
 				buttons[1].setUnActive();
+				currStage = 0;
 				//buttons[2].setUnActive();
 			});
 			//включаем первую стадию
 			buttons[1].addEventListener(MouseEvent.CLICK, function():void{
 				stageInfo.gotoAndStop(2);
+				stageInfo.setCurr(1);
 				buttons[1].setActive();
+				currStage = 1;
 				//buttons[2].setActive();
+			});
+			
+			buttons[0].addEventListener(MouseEvent.MOUSE_OVER, function():void{
+				stageInfo.gotoAndStop(1);
+			});
+			buttons[0].addEventListener(MouseEvent.MOUSE_OUT, function():void{
+				stageInfo.gotoAndStop(currStage + 1);
+			});
+			
+			buttons[1].addEventListener(MouseEvent.MOUSE_OVER, function():void{
+				stageInfo.gotoAndStop(2);
+			});
+			buttons[1].addEventListener(MouseEvent.MOUSE_OUT, function():void{
+				stageInfo.gotoAndStop(currStage + 1);
 			});
 			
 		}

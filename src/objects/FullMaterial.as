@@ -87,20 +87,21 @@ package objects
 		}
 		
 		//начальные координаты
-		private var startX:Number;
-		private var startY:Number;
+		public var startX:Number;
+		public var startY:Number;
 		
 		private function downHandler(e:MouseEvent):void {
 			material.removeEventListener(MouseEvent.MOUSE_OVER, showInfo);
 			material.removeEventListener(MouseEvent.MOUSE_OUT, hideInfo);
 			
 			this.addEventListener(MouseEvent.MOUSE_UP, upHandler);
+			//this.stage.addEventListener(MouseEvent.MOUSE_UP, upHandler);
 			this.stage.addEventListener(MouseEvent.MOUSE_MOVE, moveHandler);
 			TweenLite.to(info, 0.3, { alpha:0 } );
-			if(!material.isSet){
-				startX = _this.x;
-				startY = _this.y;
-			}
+			//if(!material.isSet){
+				//startX = _this.x;
+				//startY = _this.y;
+			//}
 			this.startDrag();
 			
 		}
