@@ -15,6 +15,7 @@ package Interface._scrollBar
 		private var pageNumber:Number = 1;
 		private var scrollStep:Number;
 		private var pagesStep:Number;
+		private var materialsPageNumber:Number = 2;
 		
 		public function ScrollBar_C(_stage:Stage) 
 		{
@@ -36,9 +37,9 @@ package Interface._scrollBar
 			this.txtNext.alpha = 0;
 			this.txtNext.buttonMode = false;
 			this.txtNext.addEventListener(MouseEvent.CLICK, function():void{
-				if (pageNumber < 8)
-				pageNumber += 1;
-				pages.gotoAndStop(pageNumber);
+				if (materialsPageNumber < 8)
+				materialsPageNumber += 1;
+				changePage(materialsPageNumber);
 			});
 			//кнопка следующей страницы
 			this.txtPrev.gotoAndStop(1);
@@ -48,9 +49,9 @@ package Interface._scrollBar
 			this.txtPrev.alpha = 0;
 			this.txtPrev.buttonMode = false;
 			this.txtPrev.addEventListener(MouseEvent.CLICK, function():void{
-				if (pageNumber > 2)
-				pageNumber -= 1;
-				pages.gotoAndStop(pageNumber);
+				if (materialsPageNumber > 2)
+				materialsPageNumber -= 1;
+				changePage(materialsPageNumber);
 			});
 			//рамка справа
 			this.border.width = 1;
@@ -77,8 +78,10 @@ package Interface._scrollBar
 				TweenLite.to(txtPrev, 1, { alpha:0 } );
 				txtNext.buttonMode = false;
 				txtPrev.buttonMode = false;
+				txtNext.mouseEnabled = false;
+				txtPrev.mouseEnabled = false;
 				pageNumber = 1;
-				changePage();
+				changePage(pageNumber);
 			});
 			//кнопка материалы
 			this.materials.height = 30;		
@@ -93,14 +96,29 @@ package Interface._scrollBar
 				TweenLite.to(txtPrev, 1, { alpha:1 } );
 				txtNext.buttonMode = true;
 				txtPrev.buttonMode = true;
-				pageNumber = 2;
-				changePage();
-			});
+				txtNext.mouseEnabled = true;
+				txtPrev.mouseEnabled = true;
+				//pageNumber = 2;
+				changePage(materialsPageNumber);
+			});			
 			//кнопка указания
 			this.instructions.height = 30;		
 			this.instructions.width = 105;
 			this.instructions.x = 222;
 			this.instructions.buttonMode = true;
+			this.instructions.addEventListener(MouseEvent.CLICK, function():void {
+				program.gotoAndStop(2);
+				materials.gotoAndStop(2);
+				instructions.gotoAndStop(1);
+				TweenLite.to(txtNext, 1, { alpha:0 } );	
+				TweenLite.to(txtPrev, 1, { alpha:0 } );
+				txtNext.buttonMode = false;
+				txtPrev.buttonMode = false;
+				txtNext.mouseEnabled = false;
+				txtPrev.mouseEnabled = false;
+				pageNumber = 9;
+				changePage(pageNumber);
+			});
 			//фон
 			this.bg.x = 0;
 			this.bg.alpha = 0.4;
@@ -158,8 +176,8 @@ package Interface._scrollBar
 			}
 		}
 		
-		private function changePage():void{
-			this.pages.gotoAndStop(pageNumber);
+		private function changePage(_pageNumber:Number):void{
+			this.pages.gotoAndStop(_pageNumber);
 		}
 		
 		//скрываем панель
