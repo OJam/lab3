@@ -1,6 +1,7 @@
 package objects 
 {
 	import flash.automation.MouseAutomationAction;
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
@@ -22,6 +23,8 @@ package objects
 		private var frameNumber:Number;
 		public var zoomed:Materials_C;
 		public var isUsed:Boolean = false;
+		public var isSetMaterial:Boolean = false;
+		public var otherMaterials:Array;
 		
 		public function FullMaterial() 
 		{
@@ -93,7 +96,7 @@ package objects
 		private function downHandler(e:MouseEvent):void {
 			material.removeEventListener(MouseEvent.MOUSE_OVER, showInfo);
 			material.removeEventListener(MouseEvent.MOUSE_OUT, hideInfo);
-			
+			parent.addChild(this as DisplayObject);
 			this.addEventListener(MouseEvent.MOUSE_UP, upHandler);
 			//this.stage.addEventListener(MouseEvent.MOUSE_UP, upHandler);
 			this.stage.addEventListener(MouseEvent.MOUSE_MOVE, moveHandler);
@@ -124,8 +127,13 @@ package objects
 			this.stopDrag();
 			this.zoomed.frameNumber = this.frameNumber;
 			var point:Point = localToGlobal(new Point(mouseX, mouseY));
-			if (mask_.hitTestPoint(point.x, point.y, true)) {
-				trace(mouseX);
+			var isSet:Boolean = false; //установлен ли в микроскоп какой-либо другой материал 
+			for (var i:int = 0; i < 11; i++){
+				if (otherMaterials[i].isSetMaterial) isSet = true;
+			}
+			if (mask_.hitTestPoint(point.x, point.y, true) && !isSet) {
+				//trace(mouseX);
+				isSetMaterial = true;
 				e.currentTarget.x = mask_.x + 35;
 				e.currentTarget.y = mask_.y - 10;	
 				material.setMaterial(true);
@@ -138,6 +146,7 @@ package objects
 				mask_.removeEventListener(MouseEvent.MOUSE_OUT, showMask);
 			}
 			else {
+				isSetMaterial = false;
 				mask1_.alpha = 0;
 				mask1_.buttonMode = false;
 				mask1_.mouseEnabled = false;

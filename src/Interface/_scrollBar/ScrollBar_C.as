@@ -141,19 +141,29 @@ package Interface._scrollBar
 			this.Scroll.buttonMode = true;
 			this.Scroll.y = 30;
 			this.Scroll.addEventListener(MouseEvent.MOUSE_WHEEL, wheelText);
-			//this.Scroll.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			this.Scroll.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
 			
 			st.addEventListener(MouseEvent.MOUSE_UP, onUp);
 		}
 		
 		private function onDown(e:MouseEvent):void {
-			var bounds:Rectangle = new Rectangle(this.pages.width - Scroll.width, 30, 0, stage.stageHeight - 78); 					
-			Scroll.startDrag(false,bounds);	
+			var bounds:Rectangle = new Rectangle(this.pages.width - Scroll.width, 30, 0, stage.stageHeight - Scroll.height - 78); 					
+			Scroll.startDrag(false, bounds);	
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, moveTxt);
 		}
 		
 		private function onUp(e:MouseEvent):void{
 			Scroll.stopDrag();
-			
+			stage.removeEventListener(MouseEvent.MOUSE_MOVE, moveTxt);
+		}
+		var currYScroll:Number;
+		
+		private function moveTxt(e:MouseEvent):void{
+			//trace(Scroll.y - 30);
+			//посчитать сколько процентов прошел скролл
+			currYScroll = Math.round(Scroll.y - 30) * 100 / Math.round(scrollBG.height - Scroll.height);
+			pages.y = - (pages.height - scrollBG.height) / 100 * currYScroll;
+			//trace(currYScroll = (((scrollBG.height - Scroll.height) / 100) * (Scroll.y - 30) ));
 		}
 		private function wheelText(e:MouseEvent):void{
 			if(e.delta > 0 && (stage.stageHeight / this.pages.height <= 1)){
@@ -221,7 +231,6 @@ package Interface._scrollBar
 			}
 			scrollStep = (pages.height - scrollBG.height) * 0.1;
 			pagesStep = (pages.height - scrollBG.height) * 0.1;
-			//scrollStep = pages.height / (scrollBG.height- Scroll.height);
 		}
 	}
 

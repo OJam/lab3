@@ -51,6 +51,10 @@ package objects
 				addedMaterials[i].startX = 140 + i * 40;
 				addedMaterials[i].startY = 250 - i * 7.5;
 			}
+			
+			for (var i:int = 0; i < 11; i++){
+				materials[i].otherMaterials = materials;
+			}
 			materials[0].setName("A");
 			materials[1].setName("B");
 			materials[2].setName("C");
@@ -75,10 +79,9 @@ package objects
 			
 			mask_.buttonMode = true;
 			
-			trace(_stage.height);
-			
+			trace(_stage.height);			
 		}
-				
+		
 		public function setZoomedMaterials(zm:Materials_C):void{
 			this.zoomedMaterials = zm;
 			for (var i:int = 0 ; i < 11; i++){
